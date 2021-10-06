@@ -1,0 +1,245 @@
+// Ignore all of this, scroll down until you see the next comment.
+// I just like my eye candy.
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+body {
+	background-color: black;
+}
+
+.text-glitch {
+	padding: 0;
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#wrapper {
+	 text-align: center;
+}
+
+.sub {
+    font-family: 'Raleway', sans-serif;
+	color: rgb(100,220,220);
+	letter-spacing: 1em;
+}
+
+.v-toolbar__content, .v-toolbar__extension {
+	padding: 16px 120px !important;
+}
+
+// Here's the meat and potatoes.
+
+/* Our mixin positions a copy of our text
+directly on our existing text, while
+also setting content to the appropriate
+text set in the data-text attribute. */
+@mixin glitchCopy {
+		content: attr(data-text);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+}
+#aniation {
+	position: relative;
+	color: white;
+	font-size: 4em;
+	letter-spacing: .5em;
+}
+#aniation2 {
+	position: relative;
+	color: white;
+	font-size: 4em;
+	letter-spacing: .5em;
+}
+.glitch {
+	position: relative;
+	color: white;
+	font-size: 4em;
+	letter-spacing: .5em;
+	/* Animation provies a slight random skew. Check bottom of doc
+	for more information on how to random skew. */
+	animation: glitch-skew 1s infinite linear alternate-reverse;
+
+	// Creates a copy before our text.
+	&::before{
+		// Duplicates our text with the mixin.
+		@include glitchCopy;
+		// Scoots text slightly to the left for the color offset.
+		left: 2px;
+		// Creates the color 'shadow' that happens on the glitch.
+		text-shadow: -2px 0 #ff00c1;
+		/* Creates an initial clip for our glitch. This works in
+		a typical top,right,bottom,left fashion and creates a mask
+		to only show a certain part of the glitch at a time. */
+		clip: rect(44px, 450px, 56px, 0);
+		/* Runs our glitch-anim defined below to run in a 5s loop, infinitely,
+		with an alternating animation to keep things fresh. */
+		animation: glitch-anim 5s infinite linear alternate-reverse;
+	}
+
+	// Creates a copy after our text. Note comments from ::before.
+	&::after {
+		@include glitchCopy;
+		left: -2px;
+		text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+		animation: glitch-anim2 1s infinite linear alternate-reverse;
+	}
+}
+
+/* Creates an animation with 20 steaps. For each step, it calculates
+a percentage for the specific step. It then generates a random clip
+box to be used for the random glitch effect. Also adds a very subtle
+skew to change the 'thickness' of the glitch.*/
+@keyframes glitch-anim {
+  $steps: 20;
+  @for $i from 0 through $steps {
+    #{percentage($i*(1/$steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+			transform: skew((random(100) / 100) + deg);
+    }
+  }
+}
+
+// Same deal, just duplicated for ultra randomness.
+@keyframes glitch-anim2 {
+  $steps: 20;
+  @for $i from 0 through $steps {
+    #{percentage($i*(1/$steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+			transform: skew((random(100) / 100) + deg);
+    }
+  }
+}
+
+// Does the same deal as before, but now only skews. Used for main text.
+@keyframes glitch-skew {
+  $steps: 10;
+  @for $i from 0 through $steps {
+    #{percentage($i*(1/$steps))} {
+      transform: skew((random(10) - 5) + deg);
+    }
+  }
+}
+.v-list-item--link::before { background-color: transparent !important;}
+.theme--dark.v-list .v-list-item--active {
+    color: white !important;
+}
+.theme--light.v-list .v-list-item--active {
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+.v-ripple__container {
+    display:none !important;
+}
+.v-text-field.v-text-field--solo .v-input__control {
+	min-height: 36px !important;
+	max-height: 36px !important;
+}
+.theme--dark.v-input > .v-input__control {
+	margin: auto;
+}
+.theme--dark.v-input > .v-input__control > .v-input__slot{
+    box-shadow: none !important;
+    border-radius: 8px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    height: 40px;
+}
+.v-text-field > .v-input__control > .v-input__slot:before {
+	border-style: none !important;
+}
+.theme--dark.v-input > .v-input__control > .v-messages{
+	display: none;
+}
+.theme--dark.v-input > .v-input__control > .v-text-field__details{
+	display: none;
+}
+.filter-search > .v-input__control > .v-input__slot {
+	background-color: #292D38;
+}
+.filter-select > .v-input__control > .v-input__slot {
+	background-color: #292D38;
+}
+
+.theme--light.v-input > .v-input__control > .v-input__slot{
+	box-shadow: none !important;
+	border: solid 1px #67676763;
+	border-radius: 11px;
+}
+.theme--dark.v-text-field--solo-inverted.v-input--is-focused > .v-input__control > .v-input__slot input {
+    color: white !important;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 25px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.theme--dark.v-input input, .theme--dark.v-input textarea {
+	color: white !important;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 25px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.theme--dark.v-text-field--solo-inverted.v-input--is-focused > .v-input__control > .v-input__slot {
+	background-color: #212429 !important;
+	border: none !important;
+}
+.theme--dark.v-text-field--solo-inverted > .v-input__control > .v-input__slot {
+	background-color: #212429 !important;
+	border: none !important;
+}
+.theme--light.v-text-field--solo-inverted.v-input--is-focused > .v-input__control > .v-input__slot {
+	background-color: white !important;
+	color: #a3a09f;
+	border: none !important;
+}
+.theme--light.v-text-field--solo-inverted > .v-input__control > .v-input__slot {
+	background-color: white !important;
+	color: #a3a09f;
+	border: none !important;
+}
+.theme--light.v-input input, .theme--dark.v-input textarea {
+	color: #a3a09f !important;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 25px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.theme--dark.vault-input input, .theme--dark.v-input textarea {
+    color: white !important;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 0px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.theme--light.vault-input input, .theme--dark.v-input textarea {
+    color: #a3a09f !important;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 0px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.theme--dark.v-autocomplete.v-input > .v-input__control > .v-input__slot {
+	border: solid #313131 2px !important;
+    padding: 20px !important;
+    width: 97% !important;
+    background-color: #00000021 !important;
+    margin-left: 1.5% !important;
+}
+.theme--light.v-autocomplete.v-input > .v-input__control > .v-input__slot {
+    border: solid #d4d4d4 2px !important;
+    padding: 20px !important;
+    width: 97% !important;
+    background-color: rgb(0 0 0 / 3%) !important;
+    margin-left: 1.5% !important;
+}
+
+.v-text-field--solo-inverted.v-input input, .v-autocomplete.v-input > .v-input__control > .v-input__slot {
+  cursor: pointer !important;
+}
