@@ -514,9 +514,14 @@ export default {
     border-right: 1px solid #292D38;
   }
   .token-info {
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 150px;
+  }
+  .token-info-item {
+    display: flex;
+    flex-direction: column;
   }
   .token-info-item h1{
     font-weight: 500;
@@ -623,22 +628,26 @@ export default {
     border-right: 1px solid #292D38;
   }
   .faq .v-expansion-panel {
-    background-color: transparent;
+    background-color: transparent !important;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #292D38;
+    border-radius: 0px !important;
   }
   .faq .v-expansion-panel--active {
     border: 1px solid #292D38;
-    border-radius: 15px;
+    border-radius: 15px !important;
   }
   .faq .v-expansion-panel-header{
     color: #00FC4C;
     font-size: 16px;
     font-weight: 500;
+    padding: 22px 30px;
   }
   .faq .v-expansion-panel-content {
     color: #979CA5;
     font-weight: 400;
     font-size: 16px;
     text-align: left;
-
+    background-color: transparent !important;
   }
 </style>
