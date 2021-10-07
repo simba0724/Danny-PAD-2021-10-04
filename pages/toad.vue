@@ -35,12 +35,12 @@
             ></v-switch>
           </div>
           <div style="display: flex">
-            <lable style="margin-right: 10px; margin-top: 10px;">Sort by:</lable>
+            <p style="margin-right: 10px; margin-top: 10px; margin-bottom: 0px;">Sort by:</p>
             <v-select
               :items="sortby"
               class="filter-select"
             ></v-select>
-            <lable style="margin-right: 10px; margin-top: 10px;">Search</lable>
+            <p style="margin-right: 10px; margin-top: 10px; margin-bottom: 0px;">Search</p>
             <v-text-field class="filter-search" style="width: 250px;" label="Enter Token Name"></v-text-field>
           </div>
         </v-card>
@@ -53,11 +53,8 @@
           class="farm-card flip-card-front"
           elevation="8">
           <h3 class="title">Regular Farms</h3>
-
           <v-expansion-panels>
-            <farmitem></farmitem>
-            <farmitem></farmitem>
-            <farmitem></farmitem>
+            <farmitem v-for="(item, i) in famr_list" :item="item" :key="i"></farmitem>
           </v-expansion-panels>
         </v-card>
       </template>
@@ -67,60 +64,18 @@
 </template>
 
 <script>
-import axios from 'axios'
 import FlipCard from '../components/FlipCard.vue'
 import FilterLayout from '../components/FilterLayout.vue'
 import FarmItem from '../components/ToadFarmItem.vue'
-import { padAddress, BEP20ABI, regularFarms } from '../farms_config.json'
+import { toadFarmList } from '../farms_config.json'
 export default {
   layout: 'toad',
   data () {
     return {
-      farm_name: '',
-      isV1: false,
-      approved: false,
+      famr_list: [],
       stake_flag: false,
-      sortby: ['Hot', 'APY', 'Daily ROI', 'Earned', 'Staked'],
-      amount: '',
-      intervals: {},
-      myAddress: '',
-      toadAddress: '',
-      tokenAddress: '',
-      contractAddress: '',
-      tokenABI: [],
-      contractABI: [],
-      padInstance: null,
-      tokenInstance: null,
-      contractInstance: null,
-      farm_img: '/padSwapLogo.svg',
-      pool_size: '0.000',
-      pool_value: '0.000',
-      stake_value: '0.000',
-      padPrice: '0.000',
-      lpPrice: '0.000',
-      rewards: '0.000',
-      rewardsUsd: '0.000',
-      token_balance: '0.000',
-      staked_tokens: '0.000',
-      roi: '0.000',
-      apy: '0.000',
-      approve_or_deposit: 'APPROVE',
       toggle_exclusive: 0,
-      width: 2,
-      radius: 10,
-      padding: 8,
-      lineCap: 'round',
-      gradient: ['#8bea4b', 'rgb(75 205 255)', 'rgb(159 68 228)'],
-      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
-      gradientDirection: 'top',
-      fill: false,
-      type: 'trend',
-      autoLineWidth: false,
-      stats_card: false,
-      loading: false,
-      search: null,
-      select: 'BNB-BUSD',
-      items: []
+      sortby: ['Hot', 'APY', 'Daily ROI', 'Earned', 'Staked']
     }
   },
   components: {
@@ -129,217 +84,7 @@ export default {
     farmitem: FarmItem
   },
   created () {
-    this.loadInstances()
-  },
-  beforeRouteLeave (to, from, next) {
-    for (const interval in this.intervals) {
-      if (this.intervals[interval]) {
-        clearInterval(this.intervals[interval])
-      }
-    }
-    next()
-  },
-  methods: {
-    flip () {
-      this.$children[1].flip()
-      setTimeout(() => { this.stats_card = true }, 200)
-    },
-    /*eslint-disable */
-    round(num, dec) {
-      num = Number(num).toFixed(20)
-      if(!Number.isFinite(Number(num))) num = '0.0'
-      num = Number(num).toFixed(20)
-      const regex = new RegExp(`^-?\\d+(?:\\.\\d{0,${dec}})?`)
-      let [int, decimals] = num.toString().replace(',', '.').split('.')
-      const rounded = num.toString().match(regex)[0]
-      return rounded
-    },
-    miOrK(num) {
-      if(num>1e6) return this.round(num/1e6, 3) + 'M'
-      else return this.round(num/1e3, 2) + 'K'
-    },
-    async loadInstances () {
-      const loadWeb3 = setInterval(() => {
-        this.items = regularFarms.farms
-        this.padAddress = padAddress
-        this.tokenABI = BEP20ABI
-        const web3 = this.$parent.$parent.$parent.$parent.web3
-        this.dataseed = this.$parent.$parent.$parent.$parent.dataseed
-        this.padInstance = new this.dataseed.eth.Contract(this.tokenABI, this.padAddress)
-        this.tokenInstance = new this.dataseed.eth.Contract(this.tokenABI, this.tokenAddress)
-        this.contractInstance = new this.dataseed.eth.Contract(this.contractABI, this.contractAddress)
-        this.loadNewInstances(this.select)
-        if (web3 && this.contractAddress) {
-          this.dataseed = this.$parent.$parent.$parent.$parent.dataseed
-          this.padInstance = new this.dataseed.eth.Contract(this.tokenABI, this.padAddress)
-          this.tokenInstance = new this.dataseed.eth.Contract(this.tokenABI, this.tokenAddress)
-          this.contractInstance = new this.dataseed.eth.Contract(this.contractABI, this.contractAddress)
-          this.web3 = web3
-          console.log('clearing')
-          clearInterval(loadWeb3)
-        }
-      }, 500)
-      this.intervals['loadData'] = setInterval(async () => {
-        this.myAddress = this.$parent.$parent.$parent.$parent.myAddress
-        await this.getPrice()
-        this.getStakedAmount()
-        this.getDividends()
-        this.getBalance()
-        this.getStakeVal()
-        this.checkAllowance()
-        this.getLpPrice()
-        this.getROI()
-        this.getPoolInfo()
-      }, 3000)
-    },
-    async loadNewInstances(select) {
-      this.farm_name = this.select.replace('(old)', '').replace('(new)', '')
-      const farm = this.items.find(i => i.name === select)
-      if(farm.old) this.isV1 = true
-      else this.isV1 = false
-      this.tokenAddress = farm.acceptedToken
-      this.contractAddress = farm.contract
-      if(farm.abi) this.contractABI = farm.abi
-      else this.contractABI = regularFarms.defaultAbi
-      this.tokenInstance = new this.dataseed.eth.Contract(this.tokenABI, this.tokenAddress)
-      this.contractInstance = new this.dataseed.eth.Contract(this.contractABI, this.contractAddress)
-    },
-    async getStakedAmount() {
-      let amount = await this.contractInstance.methods.sharesOf(this.myAddress).call()
-      this.staked_tokens = this.round(Number(amount)/1e18, 6)
-    },
-    async getDividends(){
-      let amount = await this.contractInstance.methods.estimateRewardsOf(this.myAddress).call()
-      if(amount < 0.000001) amount = 0
-      this.rewards = this.round(Number(amount)/1e18, 4)
-      this.rewardsUsd = '$' + this.round(Number(amount*this.padPrice)/1e18, 4)
-    },
-    async  getPrice() {
-      const busdInstance = new this.dataseed.eth.Contract(this.tokenABI, '0xe9e7cea3dedca5984780bafc599bd69add087d56')
-      const pairPadBalance = await this.padInstance.methods.balanceOf('0x2856aDD546E729425383173D4f65Bb3e23E796A4').call()
-      const pairBusdBalance = await busdInstance.methods.balanceOf('0x2856aDD546E729425383173D4f65Bb3e23E796A4').call()
-      this.padPrice = pairBusdBalance/pairPadBalance
-    },
-    async getPoolInfo() {
-      let amount = await this.contractInstance.methods.farmPool().call()
-      this.pool_size = this.miOrK(Number(amount)/1e18) + ' PAD'
-      this.pool_value = '$'+ this.miOrK(Number(amount*this.padPrice)/1e18)
-    },
-    async getBalance() {
-      let amount = await this.tokenInstance.methods.balanceOf(this.myAddress).call()
-      this.token_balance = this.round(Number(amount)/1e18, 4)
-    },
-    async getStakeVal(){
-      let amount = await this.contractInstance.methods.sharesOf(this.myAddress).call()
-      this.stake_value = '$' + this.round(Number(amount*this.lpPrice)/1e18, 2)
-    },
-    async getLpPrice() {
-      if(this.tokenAddress == '0x463e737d8f740395abf44f7aac2d9531d8d539e9') {
-        const BUSDinstance = new this.dataseed.eth.Contract(this.tokenABI, '0xe9e7cea3dedca5984780bafc599bd69add087d56')
-        const toadBusdInstance = new this.dataseed.eth.Contract(this.tokenABI, '0x15aff98391f928693f55b70b8f4d787031ad6f74')
-        const toadInstance = new this.dataseed.eth.Contract(this.tokenABI, '0x463e737d8f740395abf44f7aac2d9531d8d539e9')
-        let toadBusdBUSDBalance = await BUSDinstance.methods.balanceOf('0x15aff98391f928693f55b70b8f4d787031ad6f74').call()
-        let toadBusdToadBalance = await toadInstance.methods.balanceOf('0x15aff98391f928693f55b70b8f4d787031ad6f74').call()
-        this.lpPrice = toadBusdBUSDBalance/toadBusdToadBalance
-      }
-      const lpSupply = await this.tokenInstance.methods.totalSupply().call()
-      const res = await axios.post('https://api.thegraph.com/subgraphs/name/toadguy/padswap-subgraph', {
-          query: `
-          {
-              pairs(where: {id: "${this.tokenAddress}"}) {
-                  id
-                  reserveUSD
-              }
-          }
-          `
-      })
-      const reserve = res.data.data.pairs[0].reserveUSD
-      this.lpPrice = this.round(reserve/(lpSupply/1e18), 4)
-    },
-    async getROI() {
-      const totalShares = await this.contractInstance.methods.totalSupply().call()
-      const padBalance = await this.contractInstance.methods.farmPool().call()
-      const roi = ((padBalance*this.padPrice*0.1)/(totalShares*this.lpPrice))*100
-
-      this.roi = this.round(roi, 2) + '%'
-
-      let initial = 100
-      let apy = 0
-      for(let i = 0; i<365; i++) {
-          initial = initial + initial*roi/100
-          if(i == 364) {
-            this.apy = this.round(initial-100, 2) + '%'
-          }
-      }
-    },
-    async checkAllowance(){
-      const allowance = await this.tokenInstance.methods.allowance(this.myAddress, this.contractAddress).call()
-      if(allowance>20000*1e18) {
-        this.approved = true
-        this.approve_or_deposit = 'Deposit'
-      }
-      else {
-        this.approved = false
-        this.approve_or_deposit = 'Approve'
-      }
-    },
-    async approve() {
-      const tokenInstance = new this.web3.eth.Contract(this.tokenABI, this.tokenAddress)
-      let amount = '1000000'
-      amount = this.web3.utils.toWei(amount, 'ether')
-      const gasPrice = await this.web3.eth.getGasPrice()
-      let args = {
-        from:this.myAddress,
-        gasPrice:gasPrice,
-        value: 0,
-      }
-      await tokenInstance.methods.approve(this.contractAddress, amount).send(args)
-    },
-    async deposit() {
-      const contractInstance = new this.web3.eth.Contract(this.contractABI, this.contractAddress)
-      let amount = this.web3.utils.toWei(this.amount.replace(',','.'), 'ether')
-      const gasPrice = await this.web3.eth.getGasPrice()
-      let args = {
-        from: this.myAddress,
-        gasPrice: gasPrice,
-        value: 0,
-      }
-      await contractInstance.methods.deposit(amount).send(args)
-    },
-    async remove(){
-      const contractInstance = new this.web3.eth.Contract(this.contractABI, this.contractAddress)
-      let amount = this.web3.utils.toWei(this.amount.replace(',','.'), 'ether')
-      const gasPrice = await this.web3.eth.getGasPrice()
-      let args = {
-        from: this.myAddress,
-        gasPrice: gasPrice,
-        value: 0,
-      }
-      await contractInstance.methods.remove(amount).send(args)
-    },
-    async withdraw() {
-      const contractInstance = new this.web3.eth.Contract(this.contractABI, this.contractAddress)
-      const gasPrice = await this.web3.eth.getGasPrice()
-      let args = {
-        from: this.myAddress,
-        gasPrice: gasPrice,
-        value: 0,
-      }
-      await contractInstance.methods.harvest().send(args)
-    },
-  },
-  watch: {
-    loader () {
-      const l = this.loader
-      this[l] = !this[l]
-      setTimeout(() => (this[l] = false), 3000)
-      this.loader = null
-    },
-    select () {
-      const l = this.select
-      this[l] = !this[l]
-      this.loadNewInstances(l)
-    }
+    this.famr_list = toadFarmList
   }
 }
 </script>
@@ -401,13 +146,11 @@ export default {
     margin-top: 10px;
   }
 
-
   .farm-filter {
     display: flex;
     justify-content: space-between;
     box-shadow: none !important;
   }
-
 
   .farm-filter .filter-toggle {
     background-color: #292D38;

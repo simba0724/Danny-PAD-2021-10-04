@@ -20,7 +20,7 @@
           <p class="tag">Earned Value: <span>$11.3122</span></p>
         </div>
         <v-btn
-          style="background-color: #00FC4C; border-radius: 20px; margin: auto 20px; color: black; font-size: 16px; font-weight: 600; height: 40px; letter-spacing: 0px;     text-transform: none;"
+          style="background-color: #00FC4C; border-radius: 20px; margin: auto 20px; color: black; font-size: 16px; font-weight: 600; height: 40px; letter-spacing: 0px;  padding: 10px 30px; text-transform: none;"
           >
           Enable
         </v-btn>
@@ -30,32 +30,32 @@
       <div class="token-info">
         <p class="token-info-title">GET BNB-BUSD</p>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">PAD-BNB BALANCE:</p>
-          <p style="color: #FFF;">102.9179</p>
+          <p class="title">PAD-BNB BALANCE:</p>
+          <p>102.9179</p>
         </div>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">POOL SIZE:</p>
-          <p style="color: #FFF;">200.468M PAD</p>
+          <p class="title">POOL SIZE:</p>
+          <p>200.468M PAD</p>
         </div>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">PAD-BNB STAKED:</p>
-          <p style="color: #FFF;">3283.949974</p>
+          <p class="title">PAD-BNB STAKED:</p>
+          <p>3283.949974</p>
         </div>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">POOL VALUE:</p>
-          <p style="color: #FFF;">$2.60K</p>
+          <p class="title">POOL VALUE:</p>
+          <p>$2.60K</p>
         </div>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">STAKED VALUE:</p>
-          <p style="color: #FB53EF;">$470.91</p>
+          <p class="title">STAKED VALUE:</p>
+          <p style="color: #00fc4c;">$470.91</p>
         </div>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">LP/TOKEN PRICE:</p>
-          <p style="color: #FFF;">$0.1434</p>
+          <p class="title">LP/TOKEN PRICE:</p>
+          <p>$0.1434</p>
         </div>
         <div class="token-info-item">
-          <p style="color: #979CA5; width: 150px;">EARNED VALUE:</p>
-          <p style="color: #FB53EF;">$11.3122</p>
+          <p class="title">EARNED VALUE:</p>
+          <p style="color: #00fc4c;">$11.3122</p>
         </div>
       </div>
       <div class="token-form">
@@ -150,7 +150,7 @@ export default {
 }
 .token-pair p{
   margin: 0px;
-  color: #FB53EF;
+  color: #00fc4c;
   width: 100px;
 }
 
@@ -191,7 +191,7 @@ export default {
   margin-top: 5px;
 }
 .Earned .tag span {
-  color: #FB53EF;
+  color: #00fc4c;
 }
 
 .token-info {
@@ -202,11 +202,16 @@ export default {
   grid-template-columns: repeat(2,minmax(0,1fr));
 }
 .token-info-title {
-  color: #FB53EF;
+  color: #00fc4c;
   width: 50%;
 }
 .token-info-item {
   display: flex;
+}
+.token-info-item .title {
+  color: #979CA5;
+  width: 150px;
+  font-size: 14px !important;
 }
 .token-form {
   width: 50%;

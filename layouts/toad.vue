@@ -66,6 +66,7 @@
       <!-- <v-icon @click="switchTheme()">{{ "mdi-theme-light-dark" }}</v-icon> -->
       <v-btn
       id="connect-btn"
+      @click="connect()"
       style="margin-right:10px; margin-left: 10px; border-radius:12px; background: linear-gradient(180deg, #00FC4C 0%, #00D741 100%); border-radius: 20px;"
       v-if="connected === 'Connect'"
       >
@@ -73,7 +74,6 @@
       </v-btn>
       <v-btn
       id="connect-btn"
-      @click="connect()"
       style="margin-right:10px; margin-left: 10px; border-radius:12px; border: 1px solid #00D741; border-radius: 20px; background: black;"
       v-else
       >
