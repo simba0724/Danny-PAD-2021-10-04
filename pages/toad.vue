@@ -34,14 +34,18 @@
               class="filter-switch"
             ></v-switch>
           </div>
-          <div style="display: flex">
-            <p style="margin-right: 10px; margin-top: 10px; margin-bottom: 0px;">Sort by:</p>
-            <v-select
-              :items="sortby"
-              class="filter-select"
-            ></v-select>
-            <p style="margin-right: 10px; margin-top: 10px; margin-bottom: 0px;">Search</p>
-            <v-text-field class="filter-search" style="width: 250px;" label="Enter Token Name"></v-text-field>
+          <div class="filter-right">
+            <div class="filter-right-item">
+              <p style="margin-right: 10px; margin-top: 10px; margin-bottom: 0px;">Sortby:</p>
+              <v-select
+                :items="sortby"
+                class="filter-select"
+              ></v-select>
+            </div>
+            <div class="filter-right-item">
+              <p style="margin-right: 10px; margin-top: 10px; margin-bottom: 0px;">Search</p>
+              <v-text-field class="filter-search" style="width: 250px;" label="Enter Token Name"></v-text-field>
+            </div>
           </div>
         </v-card>
       </template>
@@ -144,6 +148,11 @@ export default {
     font-size: 14px;
     line-height: 19px;
     margin-top: 10px;
+  }
+
+  .filter {
+    max-width: 1200px;
+    width: 100%;
   }
 
   .farm-filter {
@@ -312,5 +321,30 @@ export default {
   .theme--light.farm-card > .text-center > svg { background-color: #f7f7f7 !important}
   .v-icon.v-icon.v-icon--link {
       z-index: 2;
+  }
+  .flip-container {
+    max-width: 1200px;
+    width: 100%;
+  }
+  .filter-right {
+    display: flex;
+  }
+  .filter-right-item {
+    display: flex;
+  }
+  @media screen and (max-width: 850px) {
+    .filter {
+      height: auto;
+    }
+    .farm-filter {
+      flex-direction: column;
+      display: flex;
+    }
+    .farm-filter .filter-right {
+      flex-direction: column;
+    }
+    .filter-right-item {
+      margin-bottom: 10px;
+    }
   }
 </style>

@@ -27,6 +27,11 @@ body {
 	padding: 16px 120px !important;
 }
 
+@media screen and (max-width: 786px) {
+	.v-toolbar__content, .v-toolbar__extension {
+	    padding: 4px 16px !important;
+	}
+}
 // Here's the meat and potatoes.
 
 /* Our mixin positions a copy of our text

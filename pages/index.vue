@@ -29,8 +29,15 @@
         </div>
       </div>
     </div>
-    <div class="middle">
-      <div class="left">
+    <v-row
+      justify="center"
+      class="middle"
+    >
+      <v-col
+        cols="12"
+        md="6"
+        class="left"
+      >
         <h1 style="font-size: 36px; font-weight: 500; line-height: 44px; margin-bottom: 30px;">Toad Network</h1>
         <p style="font-size: 16px; line-height: 20px; letter-spacing: 0.25px; color: #979CA5; margin-bottom: 30px;">Toad.Network is an evergrowing defi ecosystem, providing solutions for crypto users, projects and setting new standards for fairer token launches.</p>
         <div class="link-list">
@@ -38,8 +45,12 @@
           <v-btn to="/"><img src="/icons/pancake.png" /> Buy on PancakeSwap</v-btn>
           <v-btn to="/"><img src="/icons/xt.png" /> Buy on XT.com</v-btn>
         </div>
-      </div>
-      <div class="right">
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+        class="right"
+      >
         <router-link to="/" class="card">
           <div>
             <img src="/middle_image/toadfarms.svg" />
@@ -72,8 +83,8 @@
             <v-icon>fa fa-arrow-right</v-icon>
           </div>
         </router-link>
-      </div>
-    </div>
+      </v-col>
+    </v-row>
     <div class="video">
       <h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 500">Decentralized Perpetual Liquidity</h2>
       <p style="color: #979CA5; margin-top: 0;">Our Decentralized Perpetual Liquidity Protocol* is designed to redistribute the liquidity tokens originally added by the team back to most valuable liquidity providers.</p>
@@ -84,8 +95,15 @@
       <h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 500">PadSwap and Toad Network:</h2>
       <p style="color: #979CA5; margin-top: 0;">There are two core components of the Toad Network: Toad and its perpetual liquidity, and PadSwap’s mechanism of creating a coin with intrinsic value. </br></br> With its scarce token supply and difficulty to farm, Toad operates as a store of value with a yield return as well. In the near future Toad will also become the governance token of PAD where Toad holders will be able to vote on decisions to change the tokens in the farm as well as the allocation percentages - making users of the Toad/Pad ecosystem incentivised to find quality and innovative projects and bring them into the Pad ecosystem.</p>
     </div>
-    <div class="middle">
-      <div class="left">
+    <v-row
+      justify="center"
+      class="middle"
+    >
+      <v-col
+        cols="12"
+        md="6"
+        class="left"
+      >
         <img src="/icons/padswap.png" style="width: 247px;" />
         <p style="font-size: 16px; line-height: 20px; letter-spacing: 0.25px; color: #979CA5; margin-bottom: 30px;">PadSwap is our own automated market maker. It was built with a vault system, that creates backing from farming and swapping fees for it and its native token, PAD. Earn yield in PAD by providing liquidity and helping PadSwap grow.</p>
         <div class="link-list">
@@ -112,8 +130,12 @@
             <p>Backing Reserves</p>
           </div>
         </div>
-      </div>
-      <div class="right">
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+        class="right"
+      >
         <router-link to="/" class="card">
           <div>
             <img src="/middle_image/toadfarms.svg" />
@@ -146,8 +168,8 @@
             <v-icon>fa fa-arrow-right</v-icon>
           </div>
         </router-link>
-      </div>
-    </div>
+      </v-col>
+    </v-row>
     <div class="video faq">
       <h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 500">Frequently Asked Questions</h2>
       <div class="link-list">
@@ -174,7 +196,7 @@
     <div class="video">
       <h2 style="margin-bottom: 30px; font-size: 28px; font-weight: 500">An Evolving Community within an Evergrowing Defi Ecosystem</h2>
       <p style="color: #979CA5; margin-top: 0;">The Toad Network team is supported by a community of math nerds and meme lords from around the planet, across all timezones. Join us in building and growing together.</p>
-      <img src="/toadgroup.png" style="width: 600px; margin: 0 auto;" />
+      <img src="/toadgroup.png" style="max-width: 600px; width: 100%; margin: 0 auto;" />
     </div>
   </div>
 </template>
@@ -487,6 +509,11 @@ export default {
     border-radius: 100px;
     height: auto;
   }
+  @media screen and (max-width: 950px) {
+    .pagelogo .logo-link {
+      padding: 15px 60px;
+    }
+  }
   .link-list {
     display: flex;
     justify-content: center;
@@ -540,19 +567,18 @@ export default {
     color: #71767F;
   }
   .middle {
-    height: 484px;
-    width: 100%;
+    min-height: 484px;
     display: flex;
     padding: 0 30px;
     margin-bottom: 150px;
   }
   .middle .left {
     height: 100%;
-    width: 50%;
     text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: auto 0;
   }
   .middle .left .link-list {
     justify-content: start;
@@ -562,10 +588,10 @@ export default {
   }
   .middle .right {
     height: 100%;
-    width: 50%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
   }
+
   .middle .right .card {
     margin: 12px;
     height: 230px;
@@ -610,7 +636,7 @@ export default {
     text-align: center;
     margin: 0 auto;
     margin-bottom: 150px;
-    width: 800px;
+    max-width: 800px;
   }
   .faq .link-list .v-btn-toggle {
     background-color: transparent;
@@ -649,5 +675,38 @@ export default {
     font-size: 16px;
     text-align: left;
     background-color: transparent !important;
+  }
+  @media screen and (max-width: 786px) {
+    .token-info {
+      flex-direction: column;
+    }
+    .token-info-item {
+      margin-bottom: 20px;
+    }
+    .middle .left .link-list {
+      flex-direction: column;
+    }
+    .middle .left .link-list .v-btn {
+      border-right: 0;
+      margin-bottom: 10px;
+      justify-content: start;
+      padding: 0;
+    }
+    .video .link-list .v-item-group {
+      flex-direction: column;
+    }
+    .video .link-list .v-item-group .v-btn {
+      border-right: 0;
+      margin-bottom: 10px;
+      padding: 0;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .pagelogo h1 {
+      font-size: 46px;
+    }
+    .middle .right {
+      grid-template-columns: repeat(1, minmax(0,1fr));
+    }
   }
 </style>

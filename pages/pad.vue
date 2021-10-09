@@ -24,7 +24,7 @@
     <filterlayout>
       <template slot="front">
         <v-card class="farm-filter">
-          <div style="display: flex;">
+          <div class="filter-left">
             <v-btn-toggle class="filter-toggle">
               <v-btn>
                 V2 Farms
@@ -42,14 +42,18 @@
               class="filter-switch"
             ></v-switch>
           </div>
-          <div style="display: flex">
-            <lable style="margin-right: 10px; margin-top: 10px;">Sort by:</lable>
-            <v-select
-              :items="sortby"
-              class="filter-select"
-            ></v-select>
-            <lable style="margin-right: 10px; margin-top: 10px;">Search</lable>
-            <v-text-field class="filter-search" style="width: 250px;" label="Enter Token Name"></v-text-field>
+          <div class="filter-right">
+            <div class="filter-right-item">
+              <label style="margin-right: 10px; margin-top: 10px;">Sortby:</label>
+              <v-select
+                :items="sortby"
+                class="filter-select"
+              ></v-select>
+            </div>
+            <div class="filter-right-item">
+              <label style="margin-right: 10px; margin-top: 10px;">Search</label>
+              <v-text-field class="filter-search" style="width: 250px;" label="Enter Token Name"></v-text-field>
+            </div>
           </div>
         </v-card>
       </template>
@@ -577,5 +581,70 @@ export default {
   .theme--light.farm-card > .text-center > svg { background-color: #f7f7f7 !important}
   .v-icon.v-icon.v-icon--link {
       z-index: 2;
+  }
+  .flip-container {
+    max-width: 1200px;
+    width: 100%;
+  }
+  .filter-left {
+    display: flex;
+  }
+  .filter-right {
+    display: flex;
+  }
+  .filter-right-item {
+    display: flex;
+  }
+  .filter {
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+  }
+  @media screen and (max-width: 1265px) {
+    .filter-left {
+      flex-direction: column;
+    }
+    .filter-right {
+      flex-direction: column;
+    }
+    .filter-right-item {
+      margin-bottom: 10px;
+    }
+    .filter-right-item label {
+      margin: auto;
+    }
+  }
+  @media screen and (max-width: 850px) {
+    .filter {
+      height: auto;
+    }
+    .farm-filter {
+      flex-direction: column;
+      display: flex;
+    }
+    .farm-filter .filter-right {
+      flex-direction: column;
+    }
+    .filter-right {      
+      margin-top: 10px;
+    }
+  }
+  @media all and (max-width: 959px) {
+    .v-input {
+      max-width: 96% !important;
+      margin: auto;
+    }
+    .v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default {
+      height: 48px;
+      min-height: 0;
+      max-width: 32vw;
+    }
+    .add-remove-btns{
+      width:96%;
+      margin: auto;
+    }
+    .v-item-group > .v-btn.v-size--default {
+      font-size: 0.75rem;
+    }
   }
 </style>

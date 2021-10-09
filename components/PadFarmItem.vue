@@ -20,8 +20,8 @@
           <p class="tag">Earned Value: <span>$11.3122</span></p>
         </div>
         <v-btn
-          style="background-color: #00FC4C; border-radius: 20px; margin: auto 20px; color: black; font-size: 16px; font-weight: 600; height: 40px; letter-spacing: 0px;  padding: 10px 30px; text-transform: none;"
-          >
+          class="Enabled"
+        >
           Enable
         </v-btn>
       </div>
@@ -201,6 +201,11 @@ export default {
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
 }
+@media screen and (max-width: 550px) {
+  .token-info {
+    grid-template-columns: repeat(1,minmax(0,1fr));
+  }
+}
 .token-info-title {
   color: #00fc4c;
   width: 50%;
@@ -256,5 +261,50 @@ export default {
   display: flex;
   margin-top: 5px;
   align-items: baseline;
+}
+.v-expansion-panel-header .v-btn {
+  background-color: #00FC4C !important;
+  border-radius: 20px;
+  margin: auto 20px;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px !important;
+  letter-spacing: 0px;
+  padding: 10px 30px;
+  text-transform: none;
+}
+@media screen and (max-width: 950px) {
+  .token-info, .token-form {
+    width: 100%;
+  }
+  .token-info {
+    margin-bottom: 30px;
+  }
+  .token-pair {
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .token-pair p {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .token-pair img {
+    margin: auto;
+  }
+  .v-expansion-panel-content__wrap {
+    flex-direction: column;
+  }
+  .percent {
+    display: none;
+  }
+  .v-expansion-panel-header .v-btn {
+    margin: 20px 0;
+    margin-right: 20px;
+  }
+  .Earned {
+    width: 100px;
+  }
 }
 </style>
