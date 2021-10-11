@@ -132,7 +132,7 @@
     </v-footer> -->
   </v-app>
 </template>
-
+ 
 <script>
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Web3 from 'web3'
