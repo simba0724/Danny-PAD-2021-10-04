@@ -35,7 +35,7 @@
     >
       <v-col
         cols="12"
-        md="6"
+        lg="6"
         class="left"
       >
         <h1 style="font-size: 36px; font-weight: 500; line-height: 44px; margin-bottom: 30px;">Toad Network</h1>
@@ -48,7 +48,7 @@
       </v-col>
       <v-col
         cols="12"
-        md="6"
+        lg="6"
         class="right"
       >
         <router-link to="/" class="card">
@@ -97,11 +97,11 @@
     </div>
     <v-row
       justify="center"
-      class="middle"
+      class="middle second"
     >
       <v-col
         cols="12"
-        md="6"
+        lg="6"
         class="left"
       >
         <img src="/icons/padswap.png" style="width: 247px;" />
@@ -133,38 +133,38 @@
       </v-col>
       <v-col
         cols="12"
-        md="6"
+        lg="6"
         class="right"
       >
         <router-link to="/" class="card">
           <div>
-            <img src="/middle_image/toadfarms.svg" />
-            <h3 style="color: #FB53EF">Swap</h3>
-            <p>Earn yield in Toad by providing liquidity.</p>
+            <img src="/middle_image/padswap.svg" />
+            <h3>Swap</h3>
+            <p>Trade your favorite tokens instantly and with low fees.</p>
             <v-icon>fa fa-arrow-right</v-icon>
           </div>
         </router-link>
         <router-link to="/" class="card">
           <div>
-            <img src="/middle_image/toadlpfarms.svg" />
-            <h3 style="color: #FB53EF">Pad Farms</h3>
-            <p>Increase your liquidity share with the DPLP*.</p>
+            <img src="/middle_image/padfarms.svg" />
+            <h3>Pad Farms</h3>
+            <p>Earn yield in Pad by providing liquidity.</p>
             <v-icon>fa fa-arrow-right</v-icon>
           </div>
         </router-link>
         <router-link to="/" class="card">
           <div>
-            <img src="/middle_image/temple.svg" />
-            <h3 style="color: #FB53EF">Launch Pad</h3>
-            <p>Praise to convert non-believers into hodlers.</p>
+            <img src="/middle_image/rocket.svg" />
+            <h3>Launch Pad</h3>
+            <p>Effortless token creations in a safe and fair way</p>
             <v-icon>fa fa-arrow-right</v-icon>
           </div>
         </router-link>
         <router-link to="/" class="card">
           <div>
-            <img src="/middle_image/topsecret.svg" />
-            <h3 style="color: #FB53EF">Vault</h3>
-            <p>Can you guess what the toads are working on?</p>
+            <img src="/middle_image/vault.svg" />
+            <h3>Vault</h3>
+            <p>Create a floor price for PAD. Burn PAD to collect its backing.</p>
             <v-icon>fa fa-arrow-right</v-icon>
           </div>
         </router-link>
@@ -528,8 +528,6 @@ export default {
     line-height: 20px;
     letter-spacing: 0.75px;
     font-weight: 400;
-    padding-top: 0px;
-    padding-bottom: 0px;
     height: auto;
     border-radius: 0px;
     color: #00FC4C;
@@ -572,6 +570,26 @@ export default {
     padding: 0 30px;
     margin-bottom: 150px;
   }
+  @media (max-width: 1600px){
+    .token-info-item h1{
+      font-size: 40px;
+      margin: 0 15px;
+    }
+    .link-list .v-btn{
+      font-size: 14px;
+      padding: 0px 4px;
+    }
+  }
+  @media (min-width: 1550px){
+    .middle .left {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    .middle .right {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
   .middle .left {
     height: 100%;
     text-align: left;
@@ -601,6 +619,7 @@ export default {
     text-decoration: none;
     border-radius: 15px;
     text-align: center;
+    border: 1px solid #181D26;
   }
   .middle .right .card div {
     display: flex;
@@ -616,11 +635,20 @@ export default {
     line-height: 20px;
     margin-top: 5px;
   }
+  .second .right .card div h3 {
+    color: #FB53EF; 
+  }
   .middle .right .card div p {
     color: #979CA5;
     font-size: 14px;
     font-weight: normal;
     margin-top: 5px;
+  }
+  .middle .right .card:hover {
+    border: 1px solid #00FC4C;
+  }
+  .second .right .card:hover {
+    border: 1px solid #FB53EF;
   }
   .middle .right .card div i {
     justify-content: end;
@@ -650,6 +678,9 @@ export default {
   .faq .link-list .v-btn-toggle > .v-item--active {
     color: #00FC4C;
   }
+  .faq .link-list .v-btn-toggle > .v-item--active > .v-btn__content {
+    border-bottom: 1px solid #00FC4C;
+  }
   .faq .link-list .v-btn:not(:last-child) {
     border-right: 1px solid #292D38;
   }
@@ -662,6 +693,7 @@ export default {
   .faq .v-expansion-panel--active {
     border: 1px solid #292D38;
     border-radius: 15px !important;
+    margin-top: 0px;
   }
   .faq .v-expansion-panel-header{
     color: #00FC4C;

@@ -55,6 +55,7 @@
             :href="subitem.href"
             :target="subitem.target"
           >
+            <img :src="iconurl(subitem.icon)" style="margin-right: 10px" />
             <v-list-item-title>
               {{ subitem.title }}
               <div class="description">{{ subitem.description }}</div>
@@ -170,16 +171,19 @@ export default {
           subItems: [
             {
               title: 'New',
+              icon: 'New',
               description: 'Latest news and announcements',
               to: '/'
             },
             {
               title: 'Toad Farms',
+              icon: 'Toad',
               description: 'Earn tokens by providing liquidity',
               to: '/toad'
             },
             {
               title: 'Temple',
+              icon: 'Temple',
               description: 'Convert non-believers into hodlers',
               to: '/'
             }
@@ -190,22 +194,32 @@ export default {
           subItems: [
             {
               title: 'Swap',
+              icon: 'Swap',
               description: 'Buy or sell tokens on PadSwap',
               href: 'https://padswap.exchange/#/swap',
               target: '_blank'
             },
             {
               title: 'Pad Farms',
+              icon: 'Pad',
               description: 'Earn tokens by providing liquidity',
               to: '/pad'
             },
             {
+              title: 'Add Liquidity',
+              icon: 'Pad',
+              description: 'Create LP tokens to add to farms',
+              to: '/pad'
+            },
+            {
               title: 'Vault',
+              icon: 'Vault',
               description: 'PAD`s backing reserves',
               to: '/'
             },
             {
               title: 'Stats',
+              icon: 'Stats',
               description: 'Analyze token prices and volume',
               href: 'https://info.padswap.exchange/home',
               target: '_blank'
@@ -217,12 +231,14 @@ export default {
           subItems: [
             {
               title: 'Piramyd Store',
+              icon: 'Piramyd',
               description: 'Official Toad Merch',
               href: 'https://piramyd.me/toad-network-x-piramyd/',
               target: '_blank'
             },
             {
               title: 'Amazon Store',
+              icon: 'Amazon',
               description: 'Official Toad Merch',
               href: 'https://piramyd.me/toad-network-x-piramyd/',
               target: '_blank'
@@ -239,34 +255,40 @@ export default {
           subItems: [
             {
               title: 'TOAD Wiki',
+              icon: 'Wiki',
               description: 'Learn more about TOAD and PAD',
               href: 'http://toadwiki.herokuapp.com/',
               target: '_blank'
             },
             {
               title: 'Toad Academy',
+              icon: 'Academy',
               description: 'Learn more about crypto',
               href: 'https://toad.academy/learn',
               target: '_blank'
             },
             {
               title: 'Toad Network Audit Report',
+              icon: 'NetworkReport',
               description: 'Contracts audit report by SpadeAudits',
               to: '/'
             },
             {
               title: 'PadSwap Audit Report',
+              icon: 'NetworkReport',
               description: 'Contracts audit report by SpadeAudits',
               href: '/pad_audit_report.pdf',
               target: '_blank'
             },
             {
               title: 'Toad Network White Paper',
+              icon: 'WhitePaper',
               description: 'Toad Network`s White Paper',
               to: '/'
             },
             {
               title: 'PadSwap White Paper',
+              icon: 'WhitePaper',
               description: 'PadSwap`s White Paper',
               href: 'https://www.dropbox.com/s/bng5e1bq2u03bk6/PAD%20WHITEPAPER.PDF',
               target: '_blank'
@@ -282,6 +304,9 @@ export default {
   },
 
   methods: {
+    iconurl (icon) {
+      return '/menuicons/' + icon + '.svg'
+    },
     async connect () {
       const provider = await web3Modal.connect()
       const web3 = new Web3(provider)
