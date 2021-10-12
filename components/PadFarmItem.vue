@@ -3,7 +3,7 @@
     <v-expansion-panel-header>
       <div class="header-body">
         <div class="token-pair">
-          <img src='/bnb-busd.svg'/>
+          <img :src="tokenimage('BNB-BUSD')" style="height: 30px"/>
           <p>BNB-BUSD</p>
         </div>
         <div class="percent">
@@ -92,6 +92,9 @@ import '@fortawesome/fontawesome-free/css/all.css'
 export default {
   name: 'FarmItem',
   methods: {
+    tokenimage (icon) {
+      return '/tokensimage/' + icon + '.svg'
+    },
     flip () { this.flipped = !this.flipped }
   },
   data () {

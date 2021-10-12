@@ -3,7 +3,7 @@
     <v-expansion-panel-header>
       <div class="header-body">
         <div class="token-pair">
-          <img src='/bnb-busd.svg'/>
+          <img :src="tokenimage(item.symbol)" style="height: 30px"/>
           <p>{{item.symbol}}</p>
         </div>
         <div class="percent">
@@ -149,6 +149,9 @@ export default {
     }
   },
   methods: {
+    tokenimage (icon) {
+      return '/tokensimage/' + icon + '.svg'
+    },
     flip () {
       this.$children[1].flip()
       setTimeout(() => { this.stats_card = true }, 200)
